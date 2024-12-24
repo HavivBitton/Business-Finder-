@@ -1,6 +1,6 @@
 import { Schema, model, Types } from "mongoose";
 
-const businessSchema = new Schema({
+const businessPostSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String, required: true },
@@ -17,4 +17,4 @@ const businessSchema = new Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 
-export const Business = model("Business", businessSchema);
+export const Business = model("BusinessPost", businessPostSchema);
