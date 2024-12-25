@@ -9,12 +9,16 @@ const { authUser } = require("../middleware/authUser.js");
 
 const router = express.Router();
 
-router.use("/", authUser);
+// router.use("/", authUser);
 
 router.get("/", getAllBusinessPost);
 
-router.post("/", authUser, addBusinessPost);
+router.post(
+  "/",
+  //  authUser,
+  addBusinessPost
+);
 
-router.get("/:businessPostId", getBusinessPostById);
+router.get("/id", getBusinessPostById);
 
 module.exports = router;

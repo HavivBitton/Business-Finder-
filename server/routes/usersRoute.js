@@ -9,7 +9,11 @@ const { authUser } = require("../middleware/authUser.js");
 
 const router = express.Router();
 
-router.get("/", authUser, getAllUsers);
+router.get(
+  "/",
+  //  authUser,
+  getAllUsers
+);
 
 router.post("/signup", addUser);
 

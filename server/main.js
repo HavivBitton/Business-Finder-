@@ -3,6 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./dbConnection");
 
+const usersRouter = require("./routes/usersRoute.js");
+const businessPostsRouter = require("./routes/businessPostsRoute.js");
+
 dotenv.config();
 
 const app = express();
@@ -27,6 +30,9 @@ connectDB(DB_URI);
 app.get("/", (req, res) => {
   res.send("Server is running!");
 });
+
+app.use("/api/users", usersRouter);
+app.use("/api/businessPosts", businessPostsRouter);
 
 // Start the server
 app.listen(PORT, () => {

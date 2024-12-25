@@ -2,14 +2,14 @@ const BusinessPost = require("../models/BusinessModel.js");
 
 async function addBusinessPost(req, res, next) {
   try {
-    const { name, description, category } = req.body;
+    const { name, description, category, owner } = req.body;
     console.log(req.user);
 
     const businessPost = new BusinessPost({
       name,
       description,
       category,
-      owner: req.user.userId,
+      owner,
     });
 
     const response = await businessPost.save();

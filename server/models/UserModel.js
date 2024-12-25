@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
   name: { type: String, required: true },
@@ -13,4 +13,4 @@ const userSchema = new Schema({
   savedBusinesses: [{ type: Schema.Types.ObjectId, ref: "Business" }],
 });
 
-export const User = model("User", userSchema);
+module.exports = model("User", userSchema);
