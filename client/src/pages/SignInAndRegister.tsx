@@ -1,19 +1,21 @@
-import { Register } from "@/components/Register";
+import Register from "@/components/Register";
 import Signin from "@/components/Signin";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const SigninAndRegister = () => {
   return (
-    <div>
+    <div className="flex justify-center h-4/5">
       <Tabs defaultValue="account" className="w-[400px]">
-        <TabsList>
-          <TabsTrigger value="account">Account</TabsTrigger>
-          <TabsTrigger value="password">Password</TabsTrigger>
-        </TabsList>
-        <TabsContent value="account">
+        <div className="flex justify-center">
+          <TabsList>
+            <TabsTrigger value="Login">Login</TabsTrigger>
+            <TabsTrigger value="Register">Register</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="Login">
           <Signin />
         </TabsContent>
-        <TabsContent value="password">
+        <TabsContent value="Register">
           <Register />
         </TabsContent>
       </Tabs>

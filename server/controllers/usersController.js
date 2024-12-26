@@ -19,7 +19,15 @@ const getAllUsers = async function (req, res, next) {
 async function addUser(req, res, next) {
   try {
     const { name, username, password, email, plan, imageUrl } = req.body;
+
+    if (!name || !username || !password || !email) {
+      return res
+        .status(400)
+        .json({ error: "All required fields must be provided." });
+    }
+
     const hashedPass = await bcrypt.hash(password, 10);
+
     const user = new User({
       name,
       username,
@@ -28,9 +36,17 @@ async function addUser(req, res, next) {
       plan,
       imageUrl,
     });
+
     const newUser = await user.save();
-    res.status(201).json({ mongoMessage: newUser });
+
+    const { password: _, ...newUserWithoutPassword } = newUser.toObject();
+    res.status(201).json({ mongoMessage: newUserWithoutPassword });
   } catch (error) {
+    if (error.code === 11000) {
+      return res
+        .status(400)
+        .json({ error: "Username or email already exists." });
+    }
     next(error);
   }
 }

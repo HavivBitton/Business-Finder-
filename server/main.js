@@ -6,11 +6,8 @@ const connectDB = require("./dbConnection");
 const usersRouter = require("./routes/usersRoute.js");
 const businessPostsRouter = require("./routes/businessPostsRoute.js");
 
-dotenv.config();
-
 const app = express();
 const PORT = process.env.PORT;
-const DB_URI = process.env.URI;
 
 // Enable CORS for the frontend
 app.use(
@@ -24,7 +21,7 @@ app.use(
 app.use(express.json());
 
 // Connect to MongoDB
-connectDB(DB_URI);
+connectDB();
 
 // Example route to verify the server is running
 app.get("/", (req, res) => {

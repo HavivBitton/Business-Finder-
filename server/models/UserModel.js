@@ -10,6 +10,12 @@ const userSchema = new Schema({
     enum: ["Standard", "Gold", "Platinum"],
     default: "Standard",
   },
+  role: {
+    type: String,
+    enum: ["user", "businessOwner", "guest"],
+    default: "guest",
+  },
+  imageUrl: { type: String },
   savedBusinesses: [{ type: Schema.Types.ObjectId, ref: "Business" }],
 });
 

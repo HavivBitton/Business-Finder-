@@ -15,7 +15,7 @@ function App() {
         <Route path="/signinAndRegister" element={<SigninAndRegister />} />
         {/* <Route path="/user-profile" element={<Profile />} />
         <Route path="/register" element={<Register />} /> */}
-        <Route path="/all-posts" element={<BusinessPostsFeed />} />
+        <Route path="/business-posts-feed" element={<BusinessPostsFeed />} />
       </Routes>
     </BrowserRouter>
   );

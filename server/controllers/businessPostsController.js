@@ -21,7 +21,7 @@ async function addBusinessPost(req, res, next) {
 
 async function getAllBusinessPost(req, res, next) {
   try {
-    const posts = await BusinessPost.find();
+    const posts = await BusinessPost.find().populate("owner", "name");
 
     res.json(posts);
 
@@ -31,17 +31,17 @@ async function getAllBusinessPost(req, res, next) {
   }
 }
 
-async function getBusinessPostById(req, res, next) {
+const getBusinessPostById = async (req, res, next) => {
   try {
-    const { postId } = req.params;
-    const post = await BusinessPost.findById(postId);
-
-    res.json({ post: post });
-
-    next();
+    const { id } = req.params;
+    const post = await BusinessPost.findById(id).populate("owner", "name");
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.status(200).json(post);
   } catch (error) {
     next(error);
   }
-}
+};
 
 module.exports = { addBusinessPost, getAllBusinessPost, getBusinessPostById };
