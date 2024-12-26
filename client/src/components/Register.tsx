@@ -8,6 +8,7 @@ const Register = () => {
     email: "",
     password: "",
     plan: "Standard",
+    role: "User",
     imageUrl: "",
   });
 
@@ -38,6 +39,7 @@ const Register = () => {
         email: "",
         password: "",
         plan: "Standard",
+        role: "User",
         imageUrl: "",
       });
     } catch (err: any) {
@@ -98,6 +100,15 @@ const Register = () => {
           <option value="Standard">Standard</option>
           <option value="Gold">Gold</option>
           <option value="Platinum">Platinum</option>
+        </select>
+        <select
+          name="role"
+          value={formData.role}
+          onChange={handleInputChange}
+          className="border rounded p-2"
+        >
+          <option value="User">User</option>
+          <option value="BusinessOwner">BusinessOwner</option>
         </select>
         <input
           type="text"

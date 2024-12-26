@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-const User = require("../models/userModel.js");
+const User = require("../models/UserModel.js");
 
 const secretKey = "secretKey";
 
@@ -18,22 +18,24 @@ const getAllUsers = async function (req, res, next) {
 // Add New Users
 async function addUser(req, res, next) {
   try {
-    const { name, username, password, email, plan, imageUrl } = req.body;
-
+    const { name, username, password, email, plan, role, imageUrl } = req.body;
+    // check if some required fields miss and bring message
     if (!name || !username || !password || !email) {
       return res
         .status(400)
         .json({ error: "All required fields must be provided." });
     }
-
+    // crate hashed password
     const hashedPass = await bcrypt.hash(password, 10);
 
+    //create the new user.
     const user = new User({
       name,
       username,
       password: hashedPass,
       email,
       plan,
+      role,
       imageUrl,
     });
 
@@ -51,6 +53,7 @@ async function addUser(req, res, next) {
   }
 }
 
+// login function
 async function login(req, res, next) {
   try {
     const { username, password } = req.body; //extract user name and password from the req
@@ -72,7 +75,7 @@ async function login(req, res, next) {
         user: {
           username,
           userId: storedUser._id,
-          role: storedUser.role || "Standard",
+          role: storedUser.role,
         },
       }, //this is the payload
       secretKey,

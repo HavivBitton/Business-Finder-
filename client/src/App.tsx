@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/HomePage.tsx";
 import SigninAndRegister from "./pages/SignInAndRegister.tsx";
 import BusinessPostsFeed from "./pages/BusinessPostsFeed.tsx";
+import PostPage from "./pages/PostPage.tsx";
 
 // redux import
 
@@ -16,6 +17,7 @@ function App() {
         {/* <Route path="/user-profile" element={<Profile />} />
         <Route path="/register" element={<Register />} /> */}
         <Route path="/business-posts-feed" element={<BusinessPostsFeed />} />
+        <Route path="/business-post/:id" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );

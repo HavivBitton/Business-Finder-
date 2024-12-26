@@ -12,8 +12,8 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "businessOwner", "guest"],
-    default: "guest",
+    enum: ["User", "BusinessOwner"],
+    default: "User",
   },
   imageUrl: { type: String },
   savedBusinesses: [{ type: Schema.Types.ObjectId, ref: "Business" }],

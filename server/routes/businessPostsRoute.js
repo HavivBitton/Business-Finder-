@@ -13,12 +13,8 @@ const router = express.Router();
 
 router.get("/", getAllBusinessPost);
 
-router.post(
-  "/",
-  //  authUser,
-  addBusinessPost
-);
+router.post("/", authUser, addBusinessPost);
 
-router.get("/id", getBusinessPostById);
+router.get("/:id", getBusinessPostById);
 
 module.exports = router;

@@ -2,14 +2,14 @@ const BusinessPost = require("../models/BusinessModel.js");
 
 async function addBusinessPost(req, res, next) {
   try {
-    const { name, description, category, owner } = req.body;
+    const { name, description, category } = req.body;
     console.log(req.user);
 
     const businessPost = new BusinessPost({
       name,
       description,
       category,
-      owner,
+      owner: req.user.userId,
     });
 
     const response = await businessPost.save();
@@ -34,7 +34,9 @@ async function getAllBusinessPost(req, res, next) {
 const getBusinessPostById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const post = await BusinessPost.findById(id).populate("owner", "name");
+    const post = await BusinessPost.findById(id)
+      .populate("owner", "name")
+      .populate("subscribers", "name");
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }

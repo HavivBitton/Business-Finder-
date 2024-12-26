@@ -23,7 +23,7 @@ const seedDatabase = async () => {
         email: faker.internet.email(),
         password: faker.internet.password(8),
         plan: faker.random.arrayElement(["Standard", "Gold", "Platinum"]),
-        role: faker.random.arrayElement(["user", "businessOwner", "guest"]),
+        role: faker.random.arrayElement(["User", "BusinessOwner"]),
         imageUrl:
           "https://cdn.vectorstock.com/i/2000v/95/56/user-profile-icon-avatar-or-person-vector-45089556.avif",
       });
