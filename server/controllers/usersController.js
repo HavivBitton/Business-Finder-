@@ -75,7 +75,9 @@ async function login(req, res, next) {
         user: {
           username,
           userId: storedUser._id,
-          role: storedUser.role,
+          email: storedUser.email,
+          imageUrl: storedUser.imageUrl,
+          plan: storedUser.plan,
         },
       }, //this is the payload
       secretKey,

@@ -1,28 +1,21 @@
-import { useEffect, useState } from "react";
 import getAllBusinessPosts from "../api/getAllBusinessPost.ts";
+import { useQuery } from "@tanstack/react-query";
 
 import { Post } from "../../types.ts";
 import SinglePost from "./PostCard.tsx";
 
 const PostsList = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [error, setError] = useState<string>("");
+  const { isPending, isError, data, error, isSuccess } = useQuery({
+    queryKey: ["posts"],
+    queryFn: getAllBusinessPosts,
+  });
 
-  useEffect(() => {
-    const loadPosts = async () => {
-      try {
-        const data = await getAllBusinessPosts();
-        setPosts(data);
-      } catch (err: any) {
-        setError(err.message);
-      }
-    };
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
 
-    loadPosts();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (isError) {
+    return <span>Error: {error.message}</span>;
   }
 
   return (
@@ -31,9 +24,11 @@ const PostsList = () => {
         This is a posts list!
       </div>
       <div className="flex flex-wrap gap-4">
-        {posts.map((post) => (
-          <SinglePost post={post} key={post._id} />
-        ))}
+        {isSuccess && data && data.length > 0 ? (
+          data.map((post: Post) => <SinglePost post={post} key={post._id} />)
+        ) : (
+          <p className="text-gray-600">No posts available.</p>
+        )}
       </div>
     </div>
   );

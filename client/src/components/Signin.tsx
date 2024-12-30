@@ -1,6 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginUser from "../api/loginUser";
+import { jwtDecode } from "jwt-decode";
+import { useDispatch, UseDispatch } from "react-redux";
+import {
+  setName,
+  setEmail,
+  setId,
+  setImageUrl,
+  setPlan,
+} from "@/store/userSlice";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +20,7 @@ const Login = () => {
 
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,7 +36,17 @@ const Login = () => {
 
     try {
       await loginUser(formData);
-      alert("Login successful!");
+      // alert("Login successful!");
+      // bring data from jwt
+      const decoded = jwtDecode(Cookies.get("jwt"));
+      console.log(decoded);
+
+      dispatch(setId(decoded.user.userId));
+      dispatch(setEmail(decoded.user.email));
+      dispatch(setName(decoded.user.username));
+      dispatch(setPlan(decoded.user.plan));
+      dispatch(setImageUrl(decoded.user.imageUrl));
+
       navigate("/business-posts-feed"); // Redirect to the home page
     } catch (err: any) {
       setError(err.message);
